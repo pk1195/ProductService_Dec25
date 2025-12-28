@@ -18,7 +18,9 @@ public class Category {
     //all args constructor
 
     public Category(long id, String name) {
-        this.id = id;
-        this.name = name;
+
+    }
+
+    public void setTitle(String category) {
     }
 }
