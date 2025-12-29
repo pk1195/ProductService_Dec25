@@ -1,5 +1,6 @@
 package com.example.productservicebydheerajkumar.service;
 
+import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Product;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public interface ProductService {
 
     //get single product
-    Product getSingleProduct(Long id);
+    Product getSingleProduct(Long id) throws ProductNotFoundException;
 
     //get all products
     List<Product> getAllProducts();

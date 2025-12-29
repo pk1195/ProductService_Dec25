@@ -1,6 +1,7 @@
 package com.example.productservicebydheerajkumar.service;
 
 import com.example.productservicebydheerajkumar.dto.FakeStoreProductDto;
+import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Category;
 import com.example.productservicebydheerajkumar.models.Product;
 import org.springframework.context.annotation.Bean;
@@ -29,12 +30,17 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product getSingleProduct(Long id) {
+    public Product getSingleProduct(Long id) throws ProductNotFoundException{
         System.out.println("Inside FakeStoreProductApi service");
         //here it will map json response to FakeStoreProductDto class
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/"
                 +id, FakeStoreProductDto.class);
-        System.out.println("Response from FakeStore API: "+fakeStoreProductDto.toString());
+      //  System.out.println("Response from FakeStore API: "+fakeStoreProductDto.toString());
+
+        if(fakeStoreProductDto == null){
+            throw new ProductNotFoundException("Product not found with id: "+id);
+        }
+
         return fakeStoreProductDto.getProduct();
     }
 
