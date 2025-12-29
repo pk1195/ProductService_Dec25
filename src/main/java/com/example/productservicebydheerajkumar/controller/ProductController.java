@@ -6,6 +6,8 @@ import com.example.productservicebydheerajkumar.models.Product;
 import com.example.productservicebydheerajkumar.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 //crud apis
@@ -37,12 +39,27 @@ public class ProductController {
         return p;
     }
 
+    //get all products using List
+    @GetMapping("/products")
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
 
     // this will help to update product
-    public void updateProduct(Product product) {
+    @PutMapping("/products/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    return productService.updateProduct(id,
+            product.getTitle(),
+            product.getDescription(),
+            product.getPrice(),
+            product.getCategory()
+           // product.getImage()
+    );
     }
 
     //this will help to delete product by id
-    public void deleteProduct(Long id) {
+    @DeleteMapping("/products/{id}")
+    public Product deleteProduct(@PathVariable Long id) {
+        return productService.deleteProduct(id);
     }
 }
