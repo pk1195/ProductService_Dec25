@@ -11,7 +11,7 @@ public class Product {
     private String description;
     private double price;
     private String imageUrl;
-    private Category category;
+    private String category;
 
 
     //no args constructor
@@ -20,7 +20,7 @@ public class Product {
 
     //all args constructor
 
-    public Product(long id, String title, String description, double price, String imageUrl, Category category) {
+    public Product(long id, String title, String description, double price, String imageUrl, String category) {
         this.id = id;
         this.title = title;
         this.description = description;

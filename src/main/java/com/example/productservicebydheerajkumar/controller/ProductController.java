@@ -4,10 +4,7 @@ package com.example.productservicebydheerajkumar.controller;
 
 import com.example.productservicebydheerajkumar.models.Product;
 import com.example.productservicebydheerajkumar.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
@@ -25,7 +22,10 @@ public class ProductController {
 
     //this will help to create product
     @PostMapping("/products")
-    public void createProduct(Product product) {
+    public Product createProduct(@RequestBody Product product) {
+       Product p = productService.createProduct(product.getId(), product.getTitle(), product.getDescription(),
+                product.getPrice(),product.getCategory());
+         return p;
     }
 
     //this will help to get product by id
