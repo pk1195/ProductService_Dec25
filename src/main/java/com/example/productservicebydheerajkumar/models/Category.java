@@ -1,32 +1,18 @@
 package com.example.productservicebydheerajkumar.models;
 
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Category {
-
-    private long id;
-    private String name;
-
-    //no args constructor
-    public Category() {
-    }
-
-
-    //all args constructor
-
-    public Category(long id, String name) {
-
-    }
-
-    public void setTitle(String category) {
-    }
-
-    public String getTitle() {
-        return getTitle();
-    }
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Category extends BaseModel{
+    private String title;
 }
 
 

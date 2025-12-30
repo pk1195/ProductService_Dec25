@@ -1,32 +1,33 @@
 package com.example.productservicebydheerajkumar.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Product {
-    private long id;
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Product extends BaseModel{
     private String title;
     private String description;
     private double price;
     private String imageUrl;
-    private String category;
+    @ManyToOne  //1 category can have multiple products
+    private Category category;
 
-
-    //no args constructor
-    public Product() {
+    @Override
+    public String toString() {
+        return "Product{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", category='" + category + '\'' +
+                '}';
     }
-
-    //all args constructor
-
-    public Product(long id, String title, String description, double price, String imageUrl, String category) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.category = category;
-    }
-
 }
