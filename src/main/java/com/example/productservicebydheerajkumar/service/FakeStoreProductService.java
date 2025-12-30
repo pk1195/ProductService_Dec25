@@ -4,8 +4,6 @@ import com.example.productservicebydheerajkumar.dto.FakeStoreProductDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Category;
 import com.example.productservicebydheerajkumar.models.Product;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("FakeStoreProductService")
 //@Primary
 public class FakeStoreProductService implements ProductService{
 
@@ -56,8 +54,9 @@ public class FakeStoreProductService implements ProductService{
         return products;
     }
 
+
     @Override
-    public Product createProduct(Long id, String title, String description, Double price, String imageUrl) {
+    public Product createProduct(Long id, String title, String description, Double price, String Category) {
         //here we are creating object of FakeStoreProductDto and setting values
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
         fakeStoreProductDto.setId(id);
@@ -65,8 +64,6 @@ public class FakeStoreProductService implements ProductService{
         fakeStoreProductDto.setDescription(description);
         fakeStoreProductDto.setCategory(category);
         fakeStoreProductDto.setPrice(price);
-        fakeStoreProductDto.setImage(imageUrl);
-
         //
         FakeStoreProductDto response = restTemplate.postForObject("https://fakestoreapi.com/products",
                 fakeStoreProductDto, FakeStoreProductDto.class);
@@ -107,4 +104,6 @@ public class FakeStoreProductService implements ProductService{
                 FakeStoreProductDto.class);
         return response.getBody().getProduct();
     }
+
+
 }

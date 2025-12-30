@@ -6,10 +6,12 @@ import com.example.productservicebydheerajkumar.dto.ErrorDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Product;
 import com.example.productservicebydheerajkumar.service.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,20 +20,22 @@ public class ProductController {
 
     // a link is created her to connect controller with service layer
     private ProductService productService;
+    List<Product> products = new ArrayList<>();
 
     //creating constructor for product service
+    public ProductController(@Qualifier("SelfProductService") ProductService productService) {
 
-
-    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     //this will help to create product
     @PostMapping("/products")
     public Product createProduct(@RequestBody Product product) {
-       Product p = productService.createProduct(product.getId(), product.getTitle(), product.getDescription(),
-                product.getPrice(), String.valueOf(product.getCategory()));
-         return p;
+       Product p = productService.createProduct(product.getId(),
+                product.getTitle(), product.getDescription(),
+                product.getPrice(), product.getCategory().getTitle());
+
+        return p;
     }
 
     //this will help to get product by id
@@ -59,12 +63,6 @@ public class ProductController {
                 errorDto, HttpStatus.NOT_FOUND
         );
         return response;
-    }
-
-    //get all products using List
-    @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
     }
 
     //get all products using List
