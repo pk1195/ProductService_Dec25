@@ -4,8 +4,6 @@ import com.example.productservicebydheerajkumar.dto.FakeStoreProductDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Category;
 import com.example.productservicebydheerajkumar.models.Product;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("FakeStoreProductService")
 //@Primary
 public class FakeStoreProductService implements ProductService{
 
@@ -57,7 +55,12 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product createProduct(Long id, String title, String description, Double price, String imageUrl) {
+    public Product createProduct(Long id, String title, String description, Double price, String imageUrl, Category category, String categoryTitle) {
+        return null;
+    }
+
+    @Override
+    public Product createProduct(Long id, String title, String description, Double price, String imageUrl, String Category) {
         //here we are creating object of FakeStoreProductDto and setting values
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
         fakeStoreProductDto.setId(id);
@@ -106,5 +109,10 @@ public class FakeStoreProductService implements ProductService{
                 HttpMethod.DELETE,null,
                 FakeStoreProductDto.class);
         return response.getBody().getProduct();
+    }
+
+    @Override
+    public Product createProduct(Long id, String title, String description, double price, Category category) {
+        return null;
     }
 }

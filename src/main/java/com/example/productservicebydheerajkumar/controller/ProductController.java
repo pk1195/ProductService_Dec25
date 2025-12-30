@@ -6,6 +6,7 @@ import com.example.productservicebydheerajkumar.dto.ErrorDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Product;
 import com.example.productservicebydheerajkumar.service.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ public class ProductController {
     //creating constructor for product service
 
 
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("SelfProductService") ProductService productService) {
+
         this.productService = productService;
     }
 
@@ -30,7 +32,7 @@ public class ProductController {
     @PostMapping("/products")
     public Product createProduct(@RequestBody Product product) {
        Product p = productService.createProduct(product.getId(), product.getTitle(), product.getDescription(),
-                product.getPrice(), String.valueOf(product.getCategory()));
+                product.getPrice(), product.getCategory());
          return p;
     }
 
@@ -59,12 +61,6 @@ public class ProductController {
                 errorDto, HttpStatus.NOT_FOUND
         );
         return response;
-    }
-
-    //get all products using List
-    @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
     }
 
     //get all products using List

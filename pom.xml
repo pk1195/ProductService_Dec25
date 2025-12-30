@@ -77,6 +77,13 @@
             <version>4.0.1</version>
         </dependency>
 
+        <!-- Add to `pom.xml` dependencies -->
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
