@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,10 +20,9 @@ public class ProductController {
 
     // a link is created her to connect controller with service layer
     private ProductService productService;
+    List<Product> products = new ArrayList<>();
 
     //creating constructor for product service
-
-
     public ProductController(@Qualifier("SelfProductService") ProductService productService) {
 
         this.productService = productService;
@@ -31,9 +31,11 @@ public class ProductController {
     //this will help to create product
     @PostMapping("/products")
     public Product createProduct(@RequestBody Product product) {
-       Product p = productService.createProduct(product.getId(), product.getTitle(), product.getDescription(),
-                product.getPrice(), product.getCategory());
-         return p;
+       Product p = productService.createProduct(product.getId(),
+                product.getTitle(), product.getDescription(),
+                product.getPrice(), product.getCategory().getTitle());
+
+        return p;
     }
 
     //this will help to get product by id

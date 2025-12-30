@@ -54,13 +54,9 @@ public class FakeStoreProductService implements ProductService{
         return products;
     }
 
-    @Override
-    public Product createProduct(Long id, String title, String description, Double price, String imageUrl, Category category, String categoryTitle) {
-        return null;
-    }
 
     @Override
-    public Product createProduct(Long id, String title, String description, Double price, String imageUrl, String Category) {
+    public Product createProduct(Long id, String title, String description, Double price, String Category) {
         //here we are creating object of FakeStoreProductDto and setting values
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
         fakeStoreProductDto.setId(id);
@@ -68,8 +64,6 @@ public class FakeStoreProductService implements ProductService{
         fakeStoreProductDto.setDescription(description);
         fakeStoreProductDto.setCategory(category);
         fakeStoreProductDto.setPrice(price);
-        fakeStoreProductDto.setImage(imageUrl);
-
         //
         FakeStoreProductDto response = restTemplate.postForObject("https://fakestoreapi.com/products",
                 fakeStoreProductDto, FakeStoreProductDto.class);
@@ -111,8 +105,5 @@ public class FakeStoreProductService implements ProductService{
         return response.getBody().getProduct();
     }
 
-    @Override
-    public Product createProduct(Long id, String title, String description, double price, Category category) {
-        return null;
-    }
+
 }

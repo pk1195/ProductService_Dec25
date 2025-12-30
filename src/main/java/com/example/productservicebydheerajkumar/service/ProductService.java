@@ -15,9 +15,8 @@ public interface ProductService {
     List<Product> getAllProducts();
 
     //create product
-    Product createProduct(Long id, String title, String description, Double price, String imageUrl, Category category,String categoryTitle);
-
-    Product createProduct(Long id, String title, String description, Double price, String imageUrl, String Category);
+    //Product createProduct(Long id, String title, String description, Double price,String category);
+    Product createProduct(Long id, String title, String description, Double price, String category);
 
     //update product
     Product updateProduct(Long id, String title, String description, Double price, String imageUrl);
@@ -25,5 +24,4 @@ public interface ProductService {
     //delete product
     Product deleteProduct(Long id);
 
-    Product createProduct(Long id, String title, String description, double price, Category category);
 }

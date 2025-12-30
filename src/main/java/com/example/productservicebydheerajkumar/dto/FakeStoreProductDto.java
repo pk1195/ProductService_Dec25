@@ -2,11 +2,15 @@ package com.example.productservicebydheerajkumar.dto;
 
 import com.example.productservicebydheerajkumar.models.Category;
 import com.example.productservicebydheerajkumar.models.Product;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class FakeStoreProductDto {
     // Fakestore API product JSON structure or example
 
@@ -40,9 +44,9 @@ public class FakeStoreProductDto {
       //  product.setCategory(this.category);
 
         // for category
-//        Category cat = new Category();
-//        cat.setTitle(category);
-//        product.setCategory(cat);
+        Category cat = new Category();
+        cat.setTitle(this.category);
+        product.setCategory(cat);
         return product;
 
 

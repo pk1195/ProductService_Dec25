@@ -43,36 +43,33 @@ public class SelfProductService implements ProductService{
         return productRespository.findAll();
     }
 
+    public Product createProduct(Long id, String title, String description, Double price, String categoryTitle) {
 
-    @Override
-    public Product createProduct(Long id, String title, String description, Double price, String imageUrl ,String categoryTitle) {
-       //1. check if category is there in db
-        //2. If not then create it and save it while using product
-        //3. if yes then use it directly
-
+        // 1. Check is category is there in db
+        // 2. If not there, create it and use it while saving product
+        // 3. If there , use it in product directly
         Product p = new Product();
-        Optional<Category> category1 = categoryRepository.findByTitle(categoryTitle);
-        if (category1.isEmpty()) {
-            //create new category
-            Category newCategory = new Category();
-            newCategory.setTitle(categoryTitle);
-            Category savedCategory = categoryRepository.save(newCategory);
-            p.setCategory(savedCategory);
+        Optional<Category> currentCat = categoryRepository.findByTitle(categoryTitle);
+        if(currentCat.isEmpty()) {
+            // This means category is not present in our db
+            Category newCat = new Category();
+            newCat.setTitle(categoryTitle);
+            Category newRow = categoryRepository.save(newCat);
+            p.setCategory(newRow);
         } else {
-            Category mCategory = category1.get();
-            p.setCategory(mCategory);
+            Category currentCategory = currentCat.get();
+            p.setCategory(currentCategory);
         }
         p.setTitle(title);
         p.setDescription(description);
+//        p.setImageUrl(im);
         p.setPrice(price);
-        p.setImageUrl(imageUrl);
-        return productRespository.save(p);
+        Product savedproduct = productRespository.save(p);
+
+        return savedproduct;
     }
 
-//    @Override
-//    public Product createProduct(Long id, String title, String description, Double price, String imageUrl, String Category) {
-//        return null;
-//    }
+
 
     @Override
     public Product updateProduct(Long id, String title, String description, Double price, String imageUrl) {
@@ -84,8 +81,4 @@ public class SelfProductService implements ProductService{
         return null;
     }
 
-//    @Override
-//    public Product createProduct(Long id, String title, String description, double price, Category category) {
-//        return null;
-//    }
 }
