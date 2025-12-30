@@ -30,7 +30,7 @@ public class ProductController {
     @PostMapping("/products")
     public Product createProduct(@RequestBody Product product) {
        Product p = productService.createProduct(product.getId(), product.getTitle(), product.getDescription(),
-                product.getPrice(),product.getCategory());
+                product.getPrice(), String.valueOf(product.getCategory()));
          return p;
     }
 
@@ -75,7 +75,7 @@ public class ProductController {
             product.getTitle(),
             product.getDescription(),
             product.getPrice(),
-            product.getCategory()
+            String.valueOf(product.getCategory())
            // product.getImage()
     );
     }
