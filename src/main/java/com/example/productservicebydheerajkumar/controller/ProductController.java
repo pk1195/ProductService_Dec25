@@ -5,6 +5,7 @@ package com.example.productservicebydheerajkumar.controller;
 import com.example.productservicebydheerajkumar.dto.ErrorDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Product;
+import com.example.productservicebydheerajkumar.repository.CategoryRepository;
 import com.example.productservicebydheerajkumar.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -12,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
 public class ProductController {
+    private final CategoryRepository categoryRepository;
 //crud apis
 
     // a link is created her to connect controller with service layer
@@ -23,9 +26,10 @@ public class ProductController {
     List<Product> products = new ArrayList<>();
 
     //creating constructor for product service
-    public ProductController(@Qualifier("SelfProductService") ProductService productService) {
+    public ProductController(@Qualifier("SelfProductService") ProductService productService, CategoryRepository categoryRepository) {
 
         this.productService = productService;
+        this.categoryRepository = categoryRepository;
     }
 
     //this will help to create product
@@ -71,6 +75,12 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    //get product by category title
+    @GetMapping("/products/category/title/{categoryTitle}")
+    public ResponseEntity<List<Product>> getProductByCategoryTitle(@PathVariable("categoryTitle") String categoryTitle)  {
+        List<Product> products = productService.getProductByCategoryTitle(categoryTitle);
+        return ResponseEntity.ok(products);
+    }
     // this will help to update product
     @PutMapping("/products/{id}")
     public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
