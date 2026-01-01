@@ -111,7 +111,21 @@
                     </excludes>
                 </configuration>
             </plugin>
-        </plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.6.3</version> <!-- Use a recent version -->
+                    <configuration>
+                        <!-- This allows access to internal javadoc APIs necessary for the plugin to work -->
+                        <additionalOptions>
+                            <additionalOption>--add-exports</additionalOption>
+                            <additionalOption>jdk.javadoc/com.sun.tools.doclets.standard=ALL-UNNAMED</additionalOption>
+                        </additionalOptions>
+                    </configuration>
+                </plugin>
+            </plugins>
     </build>
+
+
 
 </project>

@@ -2,7 +2,6 @@ package com.example.productservicebydheerajkumar.service;
 
 import com.example.productservicebydheerajkumar.dto.FakeStoreProductDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
-import com.example.productservicebydheerajkumar.models.Category;
 import com.example.productservicebydheerajkumar.models.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -40,6 +39,11 @@ public class FakeStoreProductService implements ProductService{
         }
 
         return fakeStoreProductDto.getProduct();
+    }
+
+    @Override
+    public List<Product> getProductByCategoryTitle(String categoryTitle) {
+        return null;
     }
 
     @Override
