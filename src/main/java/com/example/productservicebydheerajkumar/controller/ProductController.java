@@ -72,6 +72,7 @@ public class ProductController {
     //get all products using List
     @GetMapping("/products")
     public List<Product> getAllProducts() {
+
         return productService.getAllProducts();
     }
 

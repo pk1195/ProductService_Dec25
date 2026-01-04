@@ -21,6 +21,8 @@ public class Product extends BaseModel{
     @ManyToOne  //1 category can have multiple products
     private Category category;
 
+    private int height;  //just to check flyway testing of migrations
+
     @Override
     public String toString() {
         return "Product{" +
