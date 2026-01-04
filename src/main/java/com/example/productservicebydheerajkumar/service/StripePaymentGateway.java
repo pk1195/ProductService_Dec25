@@ -6,17 +6,23 @@ import com.stripe.model.PaymentLink;
 import com.stripe.model.Price;
 import com.stripe.param.PaymentLinkCreateParams;
 import com.stripe.param.PriceCreateParams;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StripePaymentGateway implements PaymentService{
+
+    @Value("${stripe.secret.key}")
+    private String stripeSecretKey;
 
     @Override
     public String makePayment(String orderId, Long amount) throws StripeException {
 
         //1.crate PriceCreateParams object
 
-        Stripe.apiKey = "sk_test_51Slo0e1dqOSUkysq8v85S3TJk6PKYNQuZQeiXphXRTWnck39PgZ1T0ymUJDC9XLcHMaek87eJRhr4lBVPMveRVtP0076P9tkSM";
+        //api key is available in stripe dashboard
+        Stripe.apiKey = stripeSecretKey;
+
 
         PriceCreateParams params =
                 PriceCreateParams.builder()
@@ -31,7 +37,7 @@ public class StripePaymentGateway implements PaymentService{
 
         // 2. create Payment link
 
-        Stripe.apiKey = "sk_test_51Slo0e1dqOSUkysq8v85S3TJk6PKYNQuZQeiXphXRTWnck39PgZ1T0ymUJDC9XLcHMaek87eJRhr4lBVPMveRVtP0076P9tkSM";
+        Stripe.apiKey = "";
 
         PaymentLinkCreateParams linkparams =
                 PaymentLinkCreateParams.builder()
