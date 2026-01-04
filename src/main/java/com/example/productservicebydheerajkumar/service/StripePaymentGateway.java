@@ -21,7 +21,7 @@ public class StripePaymentGateway implements PaymentService{
         //1.crate PriceCreateParams object
 
         //api key is available in stripe dashboard
-        Stripe.apiKey = stripeSecretKey;
+      //  Stripe.apiKey = stripeSecretKey;
 
 
         PriceCreateParams params =
@@ -37,7 +37,7 @@ public class StripePaymentGateway implements PaymentService{
 
         // 2. create Payment link
 
-        Stripe.apiKey = "";
+ //       Stripe.apiKey = "";
 
         PaymentLinkCreateParams linkparams =
                 PaymentLinkCreateParams.builder()
