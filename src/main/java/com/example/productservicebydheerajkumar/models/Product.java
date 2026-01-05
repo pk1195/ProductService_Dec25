@@ -1,5 +1,6 @@
 package com.example.productservicebydheerajkumar.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -18,8 +19,14 @@ public class Product extends BaseModel{
     private String description;
     private double price;
     private String imageUrl;
+
+//    @Column(nullable = true)
+//    private Integer height;  //just to check flyway testing of migrations
+
     @ManyToOne  //1 category can have multiple products
     private Category category;
+
+
 
     @Override
     public String toString() {

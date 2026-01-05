@@ -1,5 +1,6 @@
 package com.example.productservicebydheerajkumar.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -19,6 +20,7 @@ public class Category extends BaseModel{
     private String title;
 
     //mapped by is used to specify the field that owns the relationship in Product class
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
 

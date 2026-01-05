@@ -1,6 +1,8 @@
 package com.example.productservicebydheerajkumar.repository;
 
 import com.example.productservicebydheerajkumar.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,6 +11,9 @@ import java.util.List;
 
 public interface ProductRespository extends JpaRepository<Product, Long> {
     //save, get, getall, delete, update
+
+    //get all products
+    Page<Product> findAll(Pageable pageable);
 
     //update is handled by save method itself
     Product save(Product product);
