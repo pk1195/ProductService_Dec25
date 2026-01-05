@@ -8,6 +8,7 @@ import com.example.productservicebydheerajkumar.models.Product;
 import com.example.productservicebydheerajkumar.repository.CategoryRepository;
 import com.example.productservicebydheerajkumar.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,10 +71,12 @@ public class ProductController {
     }
 
     //get all products using List
+    // we are adding pageNumber,pageSize,fieldName for sorting to be done
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
+    public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize")  int pageSize,
+                                        @RequestParam("fieldName")  String fieldName,@RequestParam("searchQuery") String searchQuery) {
 
-        return productService.getAllProducts();
+        return productService.getAllProducts(pageNumber,pageSize,fieldName);
     }
 
     //get product by category title

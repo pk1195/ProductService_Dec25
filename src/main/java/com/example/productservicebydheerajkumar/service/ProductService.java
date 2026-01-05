@@ -2,6 +2,7 @@ package com.example.productservicebydheerajkumar.service;
 
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Product;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface ProductService {
     List<Product> getProductByCategoryTitle(String categoryTitle);
 
     //get all products
+    Page<Product> getAllProducts(int pageNumber, int pageSize, String fieldName);
+
     List<Product> getAllProducts();
 
     //create product

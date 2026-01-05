@@ -3,6 +3,7 @@ package com.example.productservicebydheerajkumar.service;
 import com.example.productservicebydheerajkumar.dto.FakeStoreProductDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,11 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public List<Product> getProductByCategoryTitle(String categoryTitle) {
+        return null;
+    }
+
+    @Override
+    public Page<Product> getAllProducts(int pageNumber, int pageSize, String fieldName) {
         return null;
     }
 
