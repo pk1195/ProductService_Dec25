@@ -1,6 +1,7 @@
 package com.example.productservicebydheerajkumar.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -21,7 +22,10 @@ public class Category extends BaseModel{
 
     //mapped by is used to specify the field that owns the relationship in Product class
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    //cascading means if we delete category then all products associated with that category will
+    // also be deleted and if we update category then all products associated with that category will also be updated
+
     private List<Product> products;
 
     public String getTitle() {

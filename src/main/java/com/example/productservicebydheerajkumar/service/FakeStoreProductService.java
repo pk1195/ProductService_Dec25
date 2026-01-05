@@ -4,6 +4,7 @@ import com.example.productservicebydheerajkumar.dto.FakeStoreProductDto;
 import com.example.productservicebydheerajkumar.exceptions.ProductNotFoundException;
 import com.example.productservicebydheerajkumar.models.Product;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +19,30 @@ import java.util.List;
 //@Primary
 public class FakeStoreProductService implements ProductService{
 
+    private final RedisTemplate<String, Object> redisTemplate;
     //bean is called from application configuration class
     private RestTemplate restTemplate;
     private String category;
 
     //creating constructor for rest template
-    public FakeStoreProductService(RestTemplate restTemplate) {
+    public FakeStoreProductService(RestTemplate restTemplate, RedisTemplate<String, Object> redisTemplate) {
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
     public Product getSingleProduct(Long id) throws ProductNotFoundException{
         System.out.println("Inside FakeStoreProductApi service");
+
+        //1st part assume table name
+        //2 part assume key name
+        Product redisProduct = (Product) redisTemplate.opsForHash().get("PRODUCT","PRODUCT "+id);
+
+        if(redisProduct != null){
+            //cache hit
+            return redisProduct;
+        }
+
         //here it will map json response to FakeStoreProductDto class
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/"
                 +id, FakeStoreProductDto.class);
@@ -38,6 +51,8 @@ public class FakeStoreProductService implements ProductService{
         if(fakeStoreProductDto == null){
             throw new ProductNotFoundException("Product not found with id: "+id);
         }
+
+        redisTemplate.opsForHash().put("PRODUCT","PRODUCT "+id, fakeStoreProductDto.getProduct());
 
         return fakeStoreProductDto.getProduct();
     }
